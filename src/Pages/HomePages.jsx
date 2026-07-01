@@ -1,6 +1,6 @@
 // src/pages/HomePage.jsx
 
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import gsap from "gsap";
@@ -23,41 +23,91 @@ import {
 } from "lucide-react";
 import herofashion from '../assets/herofashion.jpg'
 import HeroSection from "../Components/HeroSection";
+import Footer from "../Components/Footer";
 
-export default function HomePage() {
+export default function HomePage({ isLoaded }) {
     const { addToCart } = useCart();
 
-    useEffect(() => {
-        // Animate hero content
-        gsap.from(".hero-content", { opacity: 0, y: 40, duration: 0.8 });
 
-        // Animate category cards
-        // gsap.from(".category-card", {
-        //   opacity: 0,
-        //   y: 20,
-        //   stagger: 0.1,
-        //   duration: 0.6,
-        //   delay: 0.3
-        // });
 
-        // Animate product cards
-        // gsap.from(".home-product-card", {
-        //   opacity: 0,
-        //   y: 30,
-        //   stagger: 0.12,
-        //   duration: 0.6,
-        //   delay: 0.5
-        // });
+    useLayoutEffect(() => {
+        if (!isLoaded) return;
 
-        // Animate feature cards
-        // gsap.from(".feature-card", {
-        //   opacity: 0,
-        //   scale: 0.9,
-        //   stagger: 0.08,
-        //   duration: 0.5,
-        //   delay: 0.4
-        // });
-    }, []);
+        const ctx = gsap.context(() => {
+
+            gsap.set(".navbar", {
+                opacity: 0,
+                y: -60,
+            });
+
+            gsap.set(".hero-image", {
+                opacity: 0,
+                x: -250,
+                // scale: 1.2,
+                rotate: -2,
+            });
+
+            gsap.set(".hero-title", {
+                opacity: 0,
+                y: 70,
+            });
+
+            gsap.set(".hero-subtitle", {
+                opacity: 0,
+                y: 40,
+            });
+
+            gsap.set(".hero-button", {
+                opacity: 0,
+                y: 25,
+            });
+
+            // ✅ ONE timeline only
+            const tl = gsap.timeline();
+
+            tl.to(".navbar", {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power4.out",
+            })
+
+                .to(".hero-image", {
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    rotate: 0,
+                    duration: 1.8,
+                    ease: "expo.out",
+                }, "-=0.2")
+
+                .to(".hero-title", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                }, "-=1")
+
+                .to(".hero-subtitle", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                }, "-=0.7")
+
+                .to(".hero-button", {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.15,
+                    duration: 0.6,
+                    ease: "power3.out",
+                }, "-=0.5");
+
+        });
+
+        return () => ctx.revert();
+
+    }, [isLoaded]);
 
     const handleAddToCart = (product) => {
         const cartProduct = {
@@ -290,7 +340,7 @@ export default function HomePage() {
 
                             <h3 className="font-semibold mt-1">{item.name}</h3>
 
-                            <p className="text-slate-700 mt-2 font-semibold">${item.price}</p>
+                            <p className="text-slate-700 mt-2 font-semibold">₹{item.price}</p>
 
                             <div className="mt-4 flex gap-2">
                                 <Link to={`/product/${item.id}`} className="flex-1 bg-[#0d2746] text-white px-4 py-2 rounded-full text-sm text-center hover:bg-[#0a1f34] transition">
@@ -311,21 +361,21 @@ export default function HomePage() {
             {/* DENIM BANNER */}
             <section className="py-24 bg-[#0d2746] text-white">
                 <motion.div
-                 initial={{
-    x: -80,    opacity: 0,
-    scale: 0.9,
-  }}
-  whileInView={{
-    x: 0,
-    opacity: 1,
-  
-  }}
-  viewport={{ once: true }}
-  transition={{
-    duration: 1,
-    ease: "easeOut",
-  }}
-  className="relative h-full max-w-6xl mx-auto px-6 text-center">
+                    initial={{
+                        x: -80, opacity: 0,
+                        scale: 0.9,
+                    }}
+                    whileInView={{
+                        x: 0,
+                        opacity: 1,
+
+                    }}
+                    viewport={{ once: true }}
+                    transition={{
+                        duration: 1,
+                        ease: "easeOut",
+                    }}
+                    className="relative h-full max-w-6xl mx-auto px-6 text-center">
                     <p className="uppercase tracking-[6px] text-sm text-slate-300">
                         Crafted For Excellence
                     </p>
@@ -424,12 +474,12 @@ export default function HomePage() {
                         className="relative h-[500px] rounded-3xl overflow-hidden group"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49"
+                            src="https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?auto=format&fit=crop&w=1600&q=80"
                             className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                         />
                         <div className="absolute inset-0 bg-black/30" />
                         <h3 className="absolute bottom-8 left-8 text-white text-3xl">
-                            Accessories
+                            Kids Wear
                         </h3>
                     </Link>
                 </div>
@@ -491,57 +541,7 @@ export default function HomePage() {
             </section>
 
             {/* FOOTER */}
-            <footer className="border-t bg-white">
-                <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-10">
-                    <div>
-                        <h3 className="font-bold text-xl mb-4">BlueWhale</h3>
-
-                        <p className="text-slate-500 text-sm">
-                            Crafting timeless elegance for the modern lifestyle.
-                        </p>
-
-                        <div className="flex gap-3 mt-5">
-                            <Factory size={18} />
-                            <Camera size={18} />
-                            <Bird size={18} />
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 className="font-semibold mb-4">Shop</h4>
-                        <div className="space-y-2 text-slate-500">
-                            <p>New Arrivals</p>
-                            <p>Best Sellers</p>
-                            <p>Men Collection</p>
-                            <p>Women Collection</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 className="font-semibold mb-4">Customer Care</h4>
-                        <div className="space-y-2 text-slate-500">
-                            <p>Shipping</p>
-                            <p>Returns</p>
-                            <p>Privacy Policy</p>
-                            <p>Contact</p>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 className="font-semibold mb-4">Our Brand</h4>
-                        <div className="space-y-2 text-slate-500">
-                            <p>Story</p>
-                            <p>Sustainability</p>
-                            <p>Press</p>
-                            <p>Store Locator</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="text-center border-t py-6 text-slate-500 text-sm">
-                    © 2026 BlueWhale Collection. All rights reserved.
-                </div>
-            </footer>
+            <Footer />
         </div >
     );
 }

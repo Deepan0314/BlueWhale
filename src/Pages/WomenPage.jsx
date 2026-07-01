@@ -3,59 +3,87 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { motion } from "framer-motion";
 import { useCart } from "../CartContext";
+import { useWishlist } from "../Context/WhislistContext";
+import { Heart } from "lucide-react";
+import ProductCard from "../Components/ProductCard";
 
 const womenProducts = [
     {
         id: 10,
         name: "Summer Linen Blouse",
-        price: 125,
+        price: 300,
         image:
             "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&q=80",
         category: "Tops",
+          colors: [
+            { name: "Floral Pink", value: "#EC4899" },
+            { name: "White", value: "#FFFFFF" },
+        ],
     },
     {
-        id: 11,
+        id: 5,
         name: "Elegant Maxi Dress",
-        price: 180,
+        price: 800,
         image:
             "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=800&q=80",
         category: "Dresses",
+        colors: [
+            { name: "Dark Blue", value: "#1E3A8A" },
+            { name: "Black", value: "#111827" },
+        ],
     },
     {
         id: 12,
         name: "Silk Camisole",
-        price: 95,
+        price: 950,
         image:
             "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80",
         category: "Tops",
+         colors: [
+            { name: "Blue", value: "#1D4ED8" },
+            { name: "Black", value: "#111827" },
+        ],
     },
     {
         id: 13,
         name: "High-waist Jeans",
-        price: 140,
+        price: 740,
         image:
             "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80",
         category: "Bottoms",
+         colors: [
+            { name: "Blue", value: "#1D4ED8" },
+            { name: "Black", value: "#111827" },
+        ],
     },
     {
         id: 14,
         name: "Cashmere Cardigan",
-        price: 320,
+        price: 660,
         image:
             "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=800&q=80",
         category: "Outerwear",
+         colors: [
+            { name: "Blue", value: "#1D4ED8" },
+            { name: "Black", value: "#111827" },
+        ],
     },
     {
         id: 15,
         name: "Minimal Strappy Heel",
-        price: 165,
+        price: 1065,
         image:
             "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80",
         category: "Shoes",
+         colors: [
+            { name: "Blue", value: "#1D4ED8" },
+            { name: "Black", value: "#111827" },
+        ],
     },
 ];
 export default function WomenPage() {
     const { addToCart } = useCart();
+    const { toggleWishlist, isWishlisted } = useWishlist();
 
     /* useEffect(() => {
          gsap.from(".women-header", { opacity: 0, y: -30, duration: 0.8 });
@@ -73,7 +101,12 @@ export default function WomenPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
             {/* Hero Banner */}
             <div
                 className="relative h-96 bg-cover bg-center"
@@ -98,7 +131,7 @@ export default function WomenPage() {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8">
-                    {womenProducts.map((product) => (
+                    {/* {womenProducts.map((product) => (
                         <motion.div
                             key={product.id}
                             whileHover={{ y: -8 }}
@@ -116,9 +149,21 @@ export default function WomenPage() {
                             </Link>
 
                             <div className="p-4">
-                                <h3 className="font-semibold text-lg">{product.name}</h3>
+                                <div className="flex items-center justify-between">
+                                    <h3 className="font-semibold text-lg">{product.name}</h3>
+                                    <button onClick={() => toggleWishlist(product)}>
+                                        <Heart
+                                            size={22}
+                                            className={
+                                                isWishlisted(product.id)
+                                                    ? "fill-pink-600 text-pink-600"
+                                                    : "text-gray-500"
+                                            }
+                                        />
+                                    </button>
+                                </div>
                                 <p className="text-slate-600 text-sm mt-2">{product.category}</p>
-                                <p className="text-2xl font-bold mt-3 text-pink-600">${product.price}</p>
+                                <p className="text-2xl font-bold mt-3 text-pink-600">₹{product.price}</p>
 
                                 <div className="mt-4 flex gap-2">
                                     <Link
@@ -136,9 +181,17 @@ export default function WomenPage() {
                                 </div>
                             </div>
                         </motion.div>
+                    ))} */}
+                    {womenProducts.map((product)=>(
+                        <ProductCard
+                        key={product.id}
+                        product={product}
+                        onAddToCart={handleAddToCart}
+                        onWishlist={toggleWishlist}
+                        />
                     ))}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }

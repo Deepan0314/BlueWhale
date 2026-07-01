@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { motion } from "framer-motion";
 import { useCart } from "../CartContext";
+import { useWishlist } from "../Context/WhislistContext";
+import { Heart } from "lucide-react";
+import ProductCard from "../Components/ProductCard";
 
 const kidsProducts = [
   { id: 16, name: "Colorful T-shirt Set", price: 45, image: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=500", category: "Tops" },
@@ -15,29 +18,36 @@ const kidsProducts = [
 
 export default function KidsPage() {
   const { addToCart } = useCart();
+  const { toggleWishlist, isWishlisted } = useWishlist();
 
-//   useEffect(() => {
-//     gsap.from(".kids-header", { opacity: 0, y: -30, duration: 0.8 });
-//     gsap.from(".product-card", { 
-//       opacity: 0, 
-//       y: 30, 
-//       stagger: 0.1, 
-//       duration: 0.6,
-//       delay: 0.2
-//     });
-//   }, []);
+
+  //   useEffect(() => {
+  //     gsap.from(".kids-header", { opacity: 0, y: -30, duration: 0.8 });
+  //     gsap.from(".product-card", { 
+  //       opacity: 0, 
+  //       y: 30, 
+  //       stagger: 0.1, 
+  //       duration: 0.6,
+  //       delay: 0.2
+  //     });
+  //   }, []);
 
   const handleAddToCart = (product) => {
     addToCart(product);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-100 to-white">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="min-h-screen bg-gradient-to-b from-sky-100 to-white">
       {/* Hero Banner */}
       <div
         className="relative h-96 bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=1200')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?auto=format&fit=crop&w=1600&q=80')",
         }}
       >
         <div className="absolute inset-0 bg-black/40" />
@@ -57,7 +67,7 @@ export default function KidsPage() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {kidsProducts.map((product) => (
+          {/* {kidsProducts.map((product) => (
             <motion.div
               key={product.id}
               whileHover={{ y: -8 }}
@@ -75,9 +85,21 @@ export default function KidsPage() {
               </Link>
 
               <div className="p-4">
-                <h3 className="font-semibold text-lg">{product.name}</h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="font-semibold text-lg">{product.name}</h3>
+                  <button onClick={() => toggleWishlist(product)}>
+                    <Heart
+                      size={22}
+                      className={
+                        isWishlisted(product.id)
+                          ? "fill-sky-600 text-sky-600"
+                          : "text-gray-500"
+                      }
+                    />
+                  </button>
+                </div>
                 <p className="text-slate-600 text-sm mt-2">{product.category}</p>
-                <p className="text-2xl font-bold mt-3 text-sky-600">${product.price}</p>
+                <p className="text-2xl font-bold mt-3 text-sky-600">₹{product.price}</p>
 
                 <div className="mt-4 flex gap-2">
                   <Link
@@ -86,7 +108,7 @@ export default function KidsPage() {
                   >
                     View Details
                   </Link>
-                  <button 
+                  <button
                     onClick={() => handleAddToCart(product)}
                     className="flex-1 border border-sky-600 text-sky-600 px-4 py-2 rounded-full text-sm font-medium hover:bg-sky-600 hover:text-white transition"
                   >
@@ -95,9 +117,17 @@ export default function KidsPage() {
                 </div>
               </div>
             </motion.div>
+          ))} */}
+          {kidsProducts.map((product)=>(
+            <ProductCard
+            key={product.id}
+            product={product}
+            onAddToCart={handleAddToCart}
+            onWishlist={toggleWishlist}
+            />
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -1,32 +1,107 @@
-import { Link } from "react-router-dom";
-import { Search, Heart, ShoppingBag, User } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { Heart, Search, ShoppingBag, User } from "lucide-react";
+import { useWishlist } from "../Context/WhislistContext";
+import { useCart } from "../CartContext";
+import hairalogo from "../assets/HairaLogo.png";
+import CategoriesSidebar from "./CategoriesSidebar";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import SearchBar from "./SearchBar";
+
+const navItems = [
+  { name: "HOME", path: "/" },
+  { name: "MEN", path: "/men" },
+  { name: "WOMEN", path: "/women" },
+  { name: "KIDS", path: "/kids" },
+  { name: "NEW", path: "/new-arrivals" },
+];
 
 export default function Navbar() {
+  const { wishlist } = useWishlist();
+  const { cart } = useCart();
+
+  const [open, setOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState("MEN");
+  const [search, setSearch] = useState(false);
+
+  const handleMenu = (item) => {
+    setActiveMenu(item.name);
+
+    if (item.name === "MEN" || item.name === "WOMEN" || item.name === "KIDS" || item.name === "NEW") {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  };
+
   return (
     <header className="bg-white border-b sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto h-20 px-6 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-bold">
-          BlueWhale
-        </Link>
+      <div className="relative max-w-7xl mx-auto h-20 px-6 flex items-center justify-between">
 
-        <nav className="hidden md:flex gap-10 text-sm font-medium">
-          <Link to="/"><p className="hover:underline transition duration-150">HOME</p></Link>
-          <Link to="/products"><p className="hover:underline transition duration-150">SHOP</p></Link>
-          <Link to="/men"><p className="hover:underline transition duration-150">MEN</p></Link>
-          <Link to="/women"><p className="hover:underline transition duration-150">WOMEN</p></Link>
-          <Link to="/kids"><p className="hover:underline transition duration-150">KIDS</p></Link>
-          <Link to="/new-arrivals"><p className="hover:underline transition duration-150">NEW</p></Link>
+        {/* LOGO */}
+        <NavLink to="/" className="text-2xl font-bold text-amber-700">
+          <img src={hairalogo} alt="logo" className="w-24 h-10 object-contain" />
+        </NavLink>
+
+        {/* NAV */}
+        <nav className=" navbar hidden md:flex gap-10 text-sm font-medium">
+          {navItems.map((item) => (
+            <motion.div
+              key={item.path}
+              whileHover={{ y: -2 }}
+              onMouseEnter={() => handleMenu(item)}
+              className="serif"
+            >
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `relative py-1 transition-all ${isActive ? "text-amber-700" : "text-gray-800 hover:text-amber-700"
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {item.name}
+                    <span
+                      className={`absolute left-0 -bottom-1 h-[2px] bg-amber-700 transition-all ${isActive ? "w-full" : "w-0"
+                        }`}
+                    />
+                  </>
+                )}
+              </NavLink>
+            </motion.div>
+          ))}
         </nav>
 
+        {/* ICONS */}
         <div className="flex gap-4 items-center">
-          <Search size={18} />
-          <Heart size={18} />
-          <Link to="/cart" aria-label="Cart">
-            <ShoppingBag size={18} />
-          </Link>
-          <User size={18} />
+          <div onClick={()=>setSearch(true)}>
+            <Search />
+          </div>
+          <NavLink to="/wishlist">
+            <Heart />
+          </NavLink>
+          <NavLink to="/cart">
+            <ShoppingBag />
+          </NavLink>
+          <NavLink to="/account">
+            <User />
+          </NavLink>
         </div>
       </div>
+
+      {/* MEGA MENU */}
+      <CategoriesSidebar
+        open={open}
+        setOpen={setOpen}
+        activeMenu={activeMenu}
+      />
+
+      {search && (
+        <SearchBar
+        open={search}
+        setOpen={setSearch} />
+      )}
     </header>
   );
 }

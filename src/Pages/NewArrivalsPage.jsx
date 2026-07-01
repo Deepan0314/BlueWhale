@@ -4,6 +4,8 @@ import gsap from "gsap";
 import { motion } from "framer-motion";
 import { Sparkles, Zap } from "lucide-react";
 import { useCart } from "../CartContext";
+import ProductCard from "../Components/ProductCard";
+import { useWishlist } from "../Context/WhislistContext";
 
 const newArrivals = [
   { id: 22, name: "Ultra Soft Linen Shirt", price: 99, image: "https://images.unsplash.com/photo-1596362051780-e7f40e5a90a9?w=500", category: "New Arrival", isNew: true },
@@ -16,13 +18,14 @@ const newArrivals = [
 
 export default function NewArrivalsPage() {
   const { addToCart } = useCart();
+  const { isWishlisted, toggleWishlist } = useWishlist();
 
   useEffect(() => {
-     gsap.from(".new-header", { opacity: 1, y: -30, duration: 0.8 });
-    gsap.from(".product-card", { 
-      opacity: 1, 
-      y: 30, 
-      stagger: 0.1, 
+    gsap.from(".new-header", { opacity: 1, y: -30, duration: 0.8 });
+    gsap.from(".product-card", {
+      opacity: 1,
+      y: 30,
+      stagger: 0.1,
       duration: 0.6,
       delay: 0.2
     });
@@ -42,7 +45,12 @@ export default function NewArrivalsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
       {/* Hero Banner */}
       <div
         className="relative h-96 bg-cover bg-center"
@@ -71,7 +79,7 @@ export default function NewArrivalsPage() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {newArrivals.map((product) => (
+          {/* {newArrivals.map((product) => (
             <motion.div
               key={product.id}
               whileHover={{ y: -8 }}
@@ -97,7 +105,7 @@ export default function NewArrivalsPage() {
               <div className="p-4">
                 <h3 className="font-semibold text-lg">{product.name}</h3>
                 <p className="text-slate-600 text-sm mt-2">{product.category}</p>
-                <p className="text-2xl font-bold mt-3 text-amber-600">${product.price}</p>
+                <p className="text-2xl font-bold mt-3 text-amber-600">₹{product.price}</p>
 
                 <div className="mt-4 flex gap-2">
                   <Link
@@ -106,7 +114,7 @@ export default function NewArrivalsPage() {
                   >
                     View Details
                   </Link>
-                  <button 
+                  <button
                     onClick={() => handleAddToCart(product)}
                     className="flex-1 border border-amber-600 text-amber-600 px-4 py-2 rounded-full text-sm font-medium hover:bg-amber-600 hover:text-white transition"
                   >
@@ -115,9 +123,16 @@ export default function NewArrivalsPage() {
                 </div>
               </div>
             </motion.div>
+          ))} */}
+          {newArrivals.map((item) => (
+            <ProductCard
+              key={item.id}
+              product={item}
+              onAddToCart={handleAddToCart}
+              onWishlist={toggleWishlist} />
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
