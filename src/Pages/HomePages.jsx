@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { useCart } from "../CartContext";
+import menCollection from "../assets/mencollection.jpg";
+import womenCollection from "../assets/womencollection.jpg";
+import kidsCollection from "../assets/kidscollection.jpg";
+import mensfit from "../assets/mensfit.jpg";
+import womensfit from "../assets/womensfit.jpg";
+import kidsfit from "../assets/kidsfit.jpg";
 import {
     Search,
     Heart,
@@ -24,7 +30,7 @@ import {
 import herofashion from '../assets/herofashion.jpg'
 import HeroSection from "../Components/HeroSection";
 import Footer from "../Components/Footer";
-
+import BrandStatement from "../Components/BrandStatement";
 export default function HomePage({ isLoaded }) {
     const { addToCart } = useCart();
 
@@ -227,6 +233,8 @@ export default function HomePage({ isLoaded }) {
             <div className="w-full h-fit">
                 <HeroSection />
             </div>
+            {/* BRAND STATEMENT */}
+             <BrandStatement />
             {/* CATEGORIES */}
             <motion.section
 
@@ -245,48 +253,137 @@ export default function HomePage({ isLoaded }) {
                 }}
                 className="relative h-full max-w-7xl mx-auto px-6 py-20"
             >
-                <h3 className="text-3xl font-bold mb-8">Shop by Category</h3>
-                <div className="grid md:grid-cols-4 gap-6">
-                    <Link to="/men" className="category-card relative block w-full overflow-hidden rounded-3xl h-72 group cursor-pointer bg-gray-300">
-                        <img
-                            src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800"
-                            alt="Men"
-                            className="w-full h-full object-cover display-block transition duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition" />
-                        <h3 className="absolute bottom-6 left-6 text-white text-xl font-semibold z-10">Men</h3>
-                    </Link>
+               <div className="text-center mb-14">
+                 <p className="uppercase tracking-[6px] text-sm text-gray-500">
+                     DISCOVER
+                  </p>
 
-                    <Link to="/women" className="category-card relative block w-full overflow-hidden rounded-3xl h-72 group cursor-pointer bg-gray-300">
-                        <img
-                            src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800"
-                            alt="Women"
-                            className="w-full h-full object-cover display-block transition duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition" />
-                        <h3 className="absolute bottom-6 left-6 text-white text-xl font-semibold z-10">Women</h3>
-                    </Link>
+                 <h2 className="text-5xl font-serif mt-3">
+                     Shop By Category
+                 </h2>
 
-                    <Link to="/kids" className="category-card relative block w-full overflow-hidden rounded-3xl h-72 group cursor-pointer bg-gray-300">
-                        <img
-                            src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=800"
-                            alt="Kids"
-                            className="w-full h-full object-cover display-block transition duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition" />
-                        <h3 className="absolute bottom-6 left-6 text-white text-xl font-semibold z-10">Kids</h3>
-                    </Link>
-
-                    <Link to="/new-arrivals" className="category-card relative block w-full overflow-hidden rounded-3xl h-72 group cursor-pointer bg-gray-300">
-                        <img
-                            src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800"
-                            alt="New Arrivals"
-                            className="w-full h-full object-cover display-block transition duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition" />
-                        <h3 className="absolute bottom-6 left-6 text-white text-xl font-semibold z-10">New Arrivals</h3>
-                    </Link>
+                 <p className="text-gray-500 mt-4">
+                        Curated collections crafted for every style.
+                 </p>
                 </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+  {/* MEN */}
+  <Link
+    to="/men"
+    className="relative lg:col-span-2 h-[520px] overflow-hidden rounded-3xl group cursor-pointer"
+  >
+    <img
+      src={menCollection}
+      alt="Men"
+      className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+    />
+
+    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/80 transition-all duration-500" />
+
+    <div className="absolute bottom-8 left-8 z-10 text-white">
+      <p className="uppercase tracking-[4px] text-xs mb-2">
+        Collection
+      </p>
+
+      <h3 className="text-4xl font-serif">
+        Men
+      </h3>
+
+      <p className="mt-3 tracking-[3px] text-sm">
+        SHOP NOW →
+      </p>
+    </div>
+  </Link>
+
+  {/* WOMEN + KIDS */}
+  <div className="flex flex-col gap-5">
+
+    <Link
+      to="/women"
+      className="relative h-[248px] overflow-hidden rounded-3xl group cursor-pointer"
+    >
+      <img
+        src={womenCollection}
+        alt="Women"
+        className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/80 transition-all duration-500" />
+
+      <div className="absolute bottom-8 left-8 z-10 text-white">
+        <p className="uppercase tracking-[4px] text-xs mb-2">
+          Collection
+        </p>
+
+        <h3 className="text-3xl font-serif">
+          Women
+        </h3>
+
+        <p className="mt-3 tracking-[3px] text-sm">
+          SHOP NOW →
+        </p>
+      </div>
+    </Link>
+
+    <Link
+      to="/kids"
+      className="relative h-[248px] overflow-hidden rounded-3xl group cursor-pointer"
+    >
+      <img
+        src={kidsCollection}
+        alt="Kids"
+        className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/80 transition-all duration-500" />
+
+      <div className="absolute bottom-8 left-8 z-10 text-white">
+        <p className="uppercase tracking-[4px] text-xs mb-2">
+          Collection
+        </p>
+
+        <h3 className="text-3xl font-serif">
+          Kids
+        </h3>
+
+        <p className="mt-3 tracking-[3px] text-sm">
+          SHOP NOW →
+        </p>
+      </div>
+    </Link>
+
+  </div>
+
+  {/* ACCESSORIES */}
+  <Link
+    to="/new-arrivals"
+    className="relative lg:col-span-3 h-[260px] overflow-hidden rounded-3xl group cursor-pointer"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800\\"
+      alt="Accessories"
+      className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
+    />
+
+    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-black/80 transition-all duration-500" />
+
+    <div className="absolute bottom-8 left-8 z-10 text-white">
+      <p className="uppercase tracking-[4px] text-xs mb-2">
+        Collection
+      </p>
+
+      <h3 className="text-4xl font-serif">
+        Accessories
+      </h3>
+
+      <p className="mt-3 tracking-[3px] text-sm">
+        SHOP NOW →
+      </p>
+    </div>
+  </Link>
+
+</div>
             </motion.section>
 
             {/* NEW ARRIVALS */}
@@ -429,61 +526,135 @@ export default function HomePage({ isLoaded }) {
                     })}
                 </div>
             </section>
-            <section className="max-w-7xl mx-auto px-6 py-24">
-                <div className="text-center mb-14">
-                    <span className="uppercase tracking-[5px] text-sm text-slate-500">
-                        Featured Collections
-                    </span>
+            {/* FEATURED COLLECTIONS */}
+<section className="max-w-7xl mx-auto px-6 py-28">
 
-                    <h2 className="text-5xl font-light mt-4">
-                        Curated For Every Style
-                    </h2>
-                </div>
+  {/* Heading */}
+  <div className="text-center mb-20">
+    <p className="uppercase tracking-[6px] text-sm text-gray-500">
+      FEATURED COLLECTIONS
+    </p>
 
-                <div className="grid md:grid-cols-3 gap-8">
-                    <Link
-                        to="/men"
-                        className="relative h-[500px] rounded-3xl overflow-hidden group"
-                    >
-                        <img
-                            src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f"
-                            className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-                        />
-                        <div className="absolute inset-0 bg-black/30" />
-                        <h3 className="absolute bottom-8 left-8 text-white text-3xl">
-                            Menswear
-                        </h3>
-                    </Link>
+    <h2 className="text-5xl md:text-6xl font-serif mt-4">
+      Curated For Every Style
+    </h2>
 
-                    <Link
-                        to="/women"
-                        className="relative h-[500px] rounded-3xl overflow-hidden group"
-                    >
-                        <img
-                            src="https://images.unsplash.com/photo-1496747611176-843222e1e57c"
-                            className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-                        />
-                        <div className="absolute inset-0 bg-black/30" />
-                        <h3 className="absolute bottom-8 left-8 text-white text-3xl">
-                            Womenswear
-                        </h3>
-                    </Link>
+    <p className="text-gray-500 mt-5 max-w-2xl mx-auto leading-7">
+      Discover timeless collections inspired by effortless luxury and
+      contemporary elegance.
+    </p>
+  </div>
 
-                    <Link
-                        to="/accessories"
-                        className="relative h-[500px] rounded-3xl overflow-hidden group"
-                    >
-                        <img
-                            src="https://images.unsplash.com/photo-1519340241574-2cec6aef0c01?auto=format&fit=crop&w=1600&q=80"
-                            className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-                        />
-                        <div className="absolute inset-0 bg-black/30" />
-                        <h3 className="absolute bottom-8 left-8 text-white text-3xl">
-                            Kids Wear
-                        </h3>
-                    </Link>
-                </div>
-            </section>
+  {/* Collection 1 */}
+  <Link
+    to="/men"
+    className="group grid lg:grid-cols-2 gap-12 items-center mb-28"
+  >
+    <div className="overflow-hidden rounded-3xl">
+      <img
+        src={mensfit}
+        alt="Menswear"
+        className="w-full h-[650px] object-cover transition duration-700 group-hover:scale-105"
+      />
+    </div>
+
+    <div className="lg:px-10">
+
+      <span className="uppercase tracking-[5px] text-xs border border-black px-4 py-2 rounded-full">
+        Summer Edit
+      </span>
+
+      <h2 className="font-serif text-6xl mt-8">
+        Menswear
+      </h2>
+
+      <p className="text-gray-600 mt-6 leading-8 max-w-lg">
+        Discover refined tailoring, premium fabrics and versatile pieces
+        designed for modern everyday luxury.
+      </p>
+
+      <button className="mt-10 border border-black px-8 py-4 uppercase tracking-[4px] hover:bg-black hover:text-white transition">
+        Discover →
+      </button>
+
+    </div>
+  </Link>
+
+  {/* Collection 2 */}
+  <Link
+    to="/women"
+    className="group grid lg:grid-cols-2 gap-12 items-center mb-28"
+  >
+
+    <div className="order-2 lg:order-1 lg:px-10">
+
+      <span className="uppercase tracking-[5px] text-xs border border-black px-4 py-2 rounded-full">
+        Timeless Elegance
+      </span>
+
+      <h2 className="font-serif text-6xl mt-8">
+        Womenswear
+      </h2>
+
+      <p className="text-gray-600 mt-6 leading-8 max-w-lg">
+        Elegant silhouettes crafted for confidence, sophistication and
+        effortless style from day to evening.
+      </p>
+
+      <button className="mt-10 border border-black px-8 py-4 uppercase tracking-[4px] hover:bg-black hover:text-white transition">
+        Discover →
+      </button>
+
+    </div>
+
+    <div className="order-1 lg:order-2 overflow-hidden rounded-3xl">
+      <img
+        src={womensfit}
+        alt="Womenswear"
+        className="w-full h-[650px] object-cover transition duration-700 group-hover:scale-105"
+      />
+    </div>
+
+  </Link>
+
+  {/* Collection 3 */}
+  <Link
+    to="/kids"
+    className="group grid lg:grid-cols-2 gap-12 items-center"
+  >
+
+    <div className="overflow-hidden rounded-3xl">
+      <img
+        src={kidsfit}
+        alt="Kids Wear"
+        className="w-full h-[650px] object-cover transition duration-700 group-hover:scale-105"
+      />
+    </div>
+
+    <div className="lg:px-10">
+
+      <span className="uppercase tracking-[5px] text-xs border border-black px-4 py-2 rounded-full">
+        Little Icons
+      </span>
+
+      <h2 className="font-serif text-6xl mt-8">
+        Kids Wear
+      </h2>
+
+      <p className="text-gray-600 mt-6 leading-8 max-w-lg">
+        Comfortable everyday essentials made for movement, adventure and
+        joyful moments.
+      </p>
+
+      <button className="mt-10 border border-black px-8 py-4 uppercase tracking-[4px] hover:bg-black hover:text-white transition">
+        Discover →
+      </button>
+
+    </div>
+
+  </Link>
+
+</section>
 
             {/* TESTIMONIALS */}
             <section className="max-w-7xl mx-auto px-6 py-20">

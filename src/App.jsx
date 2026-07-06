@@ -19,7 +19,10 @@ import ScrollTop from "./Components/ScrollTop";
 import Account from "./Components/AccountDetails/Account";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import ProtectedRoute from "./Components/ProtectedRoutes";
+import OrderHistory from "./pages/OrderHistory";
 const App = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -44,27 +47,39 @@ const App = () => {
 
 
 
-          <Routes>
-            <Route element={<Layout />}>
+         <Routes>
+
+              {/* Public Routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+
               <Route
-                path="/"
-                element={<HomePage isLoaded={isLoaded} />}
-              />
+                 element={
+                   <ProtectedRoute>
+                      <Layout />
+                  </ProtectedRoute>
+                }
+             >
+                 <Route
+                   path="/"
+                   element={<HomePage isLoaded={isLoaded} />}
+                 />
 
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/product/:id" element={<ProductPage />} />
-              <Route path="/men" element={<MenPage />} />
-              <Route path="/women" element={<WomenPage />} />
-              <Route path="/kids" element={<KidsPage />} />
-              <Route path="/new-arrivals" element={<NewArrivalsPage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/account" element={<Account />} />
+                 <Route path="/products" element={<ProductsPage />} />
+                 <Route path="/product/:id" element={<ProductPage />} />
+                 <Route path="/men" element={<MenPage />} />
+                 <Route path="/women" element={<WomenPage />} />
+                 <Route path="/kids" element={<KidsPage />} />
+                 <Route path="/new-arrivals" element={<NewArrivalsPage />} />
+                 <Route path="/cart" element={<CartPage />} />
+                 <Route path="/checkout" element={<CheckoutPage />} />
+                 <Route path="/wishlist" element={<Wishlist />} />
+                 <Route path="/account" element={<Account />} />
+                 <Route path="/orders" element={<OrderHistory />} />
+                 <Route path="*" element={<NotFound />} />
+               </Route>
 
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
+        </Routes>
         </Router>
       </div>
     </>

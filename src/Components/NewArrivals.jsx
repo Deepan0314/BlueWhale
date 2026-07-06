@@ -30,38 +30,93 @@ const products = [
 export default function NewArrivals() {
   return (
     <section className="max-w-7xl mx-auto px-6 py-20">
-      <div className="flex justify-between mb-10">
+      {/* Heading */}
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
         <div>
-          <span className="text-xs bg-yellow-100 px-3 py-1 rounded-full">
+          <span className="uppercase tracking-[4px] text-xs text-gray-500">
             New Season
           </span>
 
-          <h2 className="text-4xl font-bold mt-4">
-            New Arrivals
-          </h2>
+          <h2 className="text-5xl font-light mt-3">Just Dropped</h2>
+
+          <p className="text-gray-500 mt-4 max-w-lg">
+            Discover effortless styles crafted for modern living.
+            Every piece is designed to blend comfort,
+            elegance and timeless fashion.
+          </p>
         </div>
 
-        <button className="flex items-center gap-2">
-          View All <ArrowRight size={18} />
+        <button className="group flex items-center gap-2 text-sm font-medium hover:text-black transition">
+          View All
+          <ArrowRight
+            size={18}
+            className="transition-transform duration-300 group-hover:translate-x-1"
+          />
         </button>
       </div>
 
-      <div className="grid md:grid-cols-4 gap-8">
-        {products.map((item) => (
-          <div key={item.name}>
+      {/* Main Layout */}
+      <div className="grid lg:grid-cols-5 gap-10 items-start">
+        {/* Editorial Banner */}
+        <div className="lg:col-span-2">
+          <div className="relative overflow-hidden rounded-[32px] h-[620px] group">
             <img
-              src={item.image}
-              alt=""
-              className="h-80 w-full object-cover rounded-3xl"
+              src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=80"
+              alt="HAIRA Collection"
+              className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
             />
 
-            <h3 className="mt-4 font-semibold">
-              {item.name}
-            </h3>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-            <p>{item.price}</p>
+            <div className="absolute bottom-10 left-8 right-8">
+              <p className="uppercase tracking-[5px] text-white/70 text-sm">
+                HAIRA EDIT
+              </p>
+
+              <h3 className="text-4xl text-white font-light mt-4 leading-tight">
+                Crafted for
+                <br />
+                Everyday Luxury
+              </h3>
+
+              <p className="text-white/80 mt-4">
+                Fresh arrivals inspired by effortless elegance.
+              </p>
+
+              <button className="mt-8 bg-white text-black px-6 py-3 rounded-full hover:bg-black hover:text-white transition duration-300">
+                Explore Collection
+              </button>
+            </div>
           </div>
-        ))}
+        </div>
+
+        {/* Products */}
+        <div className="lg:col-span-3 overflow-x-auto scrollbar-hide">
+          <div className="flex gap-6 pb-4 w-max">
+            {products.map((product) => (
+              <div
+                key={product.name}
+                className="w-[280px] flex-shrink-0 group cursor-pointer"
+              >
+                <div className="overflow-hidden rounded-3xl bg-gray-100">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-[380px] object-cover transition duration-700 group-hover:scale-105"
+                  />
+                </div>
+
+                <div className="mt-5">
+                  <h3 className="text-lg font-medium group-hover:text-gray-800 transition">
+                    {product.name}
+                  </h3>
+
+                  <p className="text-gray-500 mt-1">{product.price}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
-
+import Logo from "../assets/Secondary-Logo_Haierah-01-transparent.png";
 export default function LoadingScreen({ onComplete }) {
     const containerRef = useRef(null);
     const lettersRef = useRef([]);
@@ -140,19 +140,16 @@ export default function LoadingScreen({ onComplete }) {
             >
                 <div className="flex flex-col items-center">
                     {/* Logo letters line */}
-                    <div className="flex space-x-1.5 overflow-visible pl-[0.18em]">
-                        {logoText.split("").map((letter, index) => (
-                            <span
-                                key={index}
-                                id={`haira-logo-letter-${index}`}
-                                ref={(el) => {
-                                    lettersRef.current[index] = el;
-                                }}
-                                className="font-serif text-5xl md:text-7xl font-extralight tracking-[0.18em] text-neutral-950 inline-block select-none"
-                            >
-                                {letter}
-                            </span>
-                        ))}
+                    <div className="flex justify-center items-center">
+                       <img
+                          id="haira-logo"
+                          ref={(el) => {
+                               lettersRef.current[0] = el;
+                        }}
+                        src={Logo}
+                        alt="HAIERAH"
+                        className="w-[420px] md:w-[520px] lg:w-[600px] object-contain select-none"
+                        />
                     </div>
 
                     {/* Thin luxury loading line container */}

@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-10">
         <div>
           <h2 className="text-xl font-bold mb-4">
-            HYRA
+            HAIERAH
           </h2>
 
           <p className="text-slate-500 text-sm">
@@ -64,7 +64,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t py-6 text-center text-sm text-slate-500">
-        © 2024 BlueWhale Collection. All rights reserved.
+        © 2026 HAIERAH Collection. All rights reserved.
       </div>
     </footer>
   );

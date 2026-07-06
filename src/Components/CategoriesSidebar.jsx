@@ -187,7 +187,7 @@ const CategoriesSidebar = ({ open, setOpen, activeMenu }) => {
                                 className="text-[#F5F1E8] text-6xl tracking-[0.2em]"
                                 style={{ fontFamily: "Cormorant Garamond" }}
                             >
-                                HAIRA
+                                HAIERAH
                             </h1>
 
                             <p className="text-zinc-500 mt-2 text-sm uppercase tracking-[0.12em]">
