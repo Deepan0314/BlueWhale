@@ -39,8 +39,7 @@ export default function ProductPage() {
 
   const { addToCart } = useCart();
   const {
-    addToWishlist,
-    removeFromWishlist,
+    toggleWishlist,
     isWishlisted,
   } = useWishlist();
 
@@ -79,13 +78,9 @@ export default function ProductPage() {
     );
   }
 
-  const handleWishlist = () => {
-    if (isWishlisted(product.id)) {
-      removeFromWishlist(product.id);
-    } else {
-      addToWishlist(product);
-    }
-  };
+ const handleWishlist = () => {
+  toggleWishlist(product);
+};
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-16">

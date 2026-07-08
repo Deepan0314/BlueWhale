@@ -18,12 +18,18 @@ export const AuthProvider = ({ children }) => {
   );
 
   if (existingUser) {
-    setUser(existingUser);
-    localStorage.setItem("user", JSON.stringify(existingUser));
-    return true;
-  }
+  setUser(existingUser);
+  localStorage.setItem("user", JSON.stringify(existingUser));
 
-  return false;
+  return {
+    success: true,
+    user: existingUser,
+  };
+}
+
+return {
+  success: false,
+};
 };
 const register = (name, email, password) => {
   const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -41,6 +47,7 @@ const register = (name, email, password) => {
     name,
     email,
     password,
+    role: "user",
   };
 
   users.push(newUser);

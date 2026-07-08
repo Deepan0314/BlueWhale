@@ -1,0 +1,6 @@
+{
+  "name": "Hyra",
+  "description": "A luxury e-commerce admin control panel tailored for Hyra and Shopify retailers, featuring dynamic product catalogs CRUD, automatic stock deduction simulation, visual page customizer mockups, printable invoice documents, discounts coupon systems, and analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -16,13 +16,21 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const success = login(email, password);
+   const result = login(email, password);
 
-    if (success) {
-      navigate("/");
-    } else {
-      alert("Invalid email or password");
-    }
+  console.log(result);
+
+  if (result.success) {
+     console.log("Logged in role:", result.user.role);
+     if (result.user.role === "admin") {
+         navigate("/admin");
+     } else {
+        navigate("/");
+     }
+
+  } else {
+       alert("Invalid email or password");
+     }
   };
 
   return (
