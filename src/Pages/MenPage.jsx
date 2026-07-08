@@ -71,11 +71,7 @@ export default function MenPage() {
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen bg-gradient-to-b from-[#f8f7f5] to-white">
-      {category && (
-        <p className="text-gray-600 mt-2">
-          Showing: {category}
-        </p>
-      )}
+      
       {/* Hero Banner */}
       <div
         className="relative h-96 bg-cover bg-center"

@@ -1,57 +1,100 @@
-import { motion } from "framer-motion";
-import heroFashion from "../assets/herofashion.jpg";
+import { motion,useScroll,useTransform } from "framer-motion";
+import heroVideo from "../assets/herovideo.mp4";
 import { useNavigate } from "react-router-dom";
 
 export default function HeroSection() {
   const navigate=useNavigate();
+  const { scrollY } = useScroll();
+
+  const textY = useTransform(scrollY, [0, 500], [0, -150]);
   return (
-    <section className="h-screen overflow-hidden border-b border-black">
-  <div className="grid lg:grid-cols-2 h-[700px]">
+    <section className="relative h-screen overflow-hidden">
 
-    <div className="relative h-full overflow-hidden">
-      <img
-        src={heroFashion}
-        alt="Fashion Model"
-        className="hero-image w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-black/5" />
+  {/* Background Video */}
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    className="absolute inset-0 w-full h-full object-cover"
+  >
+    <source src={heroVideo} type="video/mp4" />
+  </video>
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-black/40"></div>
+
+  {/* Hero Content */}
+  <motion.div
+    style={{ y: textY }}
+    className="relative z-10 flex h-full items-center justify-center text-center px-6">
+
+    <div className="max-w-3xl">
+
+      {/* New Season */}
+
+      <motion.span
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="uppercase tracking-[0.35em] text-sm text-white"
+      >
+        New Season
+      </motion.span>
+
+      {/* Heading */}
+
+      <motion.h1
+        initial={{ opacity: 0, y: 80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.3 }}
+        className="mt-6 text-5xl md:text-7xl lg:text-8xl font-serif text-white leading-none"
+      >
+        The New
+        <br />
+        Atelier Collection
+      </motion.h1>
+
+      {/* Paragraph */}
+
+      <motion.p
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8 }}
+        className="mt-8 text-lg md:text-xl text-gray-200"
+      >
+        Discover modern silhouettes and timeless luxury,
+        exclusively crafted for the discerning individual.
+      </motion.p>
+
+      {/* Buttons */}
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.1 }}
+        className="mt-12 flex justify-center gap-6 flex-wrap"
+      >
+
+        <button
+          onClick={() => navigate("/products")}
+          className="bg-white text-black px-10 py-4 rounded-full hover:bg-gray-200 transition"
+        >
+          Explore Now
+        </button>
+
+        <button
+          className="border border-white text-white px-10 py-4 rounded-full hover:bg-white hover:text-black transition"
+        >
+          View Campaign
+        </button>
+
+      </motion.div>
+
     </div>
 
-    <div className="hero-content flex items-center justify-center bg-[#f8f8f6] px-8 lg:px-1 h-[500px]">
-      <div className="max-w-xl text-center">
+  </motion.div>
 
-        <span className="hero-title uppercase tracking-[0.3em] text-sm text-gray-500">
-          New Season
-        </span>
-
-        <h1 className="hero-title mt-6 text-5xl md:text-6xl lg:text-7xl font-serif leading-tight text-[#1f1f1f]">
-          The New
-          <br />
-          Atelier Collection
-        </h1>
-
-        <p className="hero-subtitle mt-8 text-lg text-gray-600 leading-relaxed">
-          Discover modern silhouettes and timeless luxury,
-          exclusively crafted for the discerning individual.
-        </p>
-
-        <div className="mt-12 flex flex-col sm:flex-row justify-center gap-5">
-          <button
-            onClick={() => navigate("/products")}
-            className="hero-button border border-black px-10 py-4 text-black hover:bg-black hover:text-white transition-all duration-300"
-          >
-            Explore Now
-          </button>
-
-          <button className="hero-button bg-black text-white px-10 py-4 hover:bg-neutral-800 transition-all duration-300 shadow-lg">
-            View Campaign
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
 </section>
   );
 }

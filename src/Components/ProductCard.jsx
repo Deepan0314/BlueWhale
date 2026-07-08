@@ -17,8 +17,7 @@ const ProductCard = ({
     const colors = product.colors || [];
     const sizes = product.sizes || ["S", "M", "L", "XL"];
     const { isWishlisted } = useWishlist();
-    const[hoverColor, setHoverColor]=useState();
-
+    const [isHovered, setIsHovered] = useState(false);
     const [selectedColor, setSelectedColor] = useState(colors[0] || "");
     const [selectedSize, setSelectedSize] = useState(sizes[0] || "");
     console.log(product);
@@ -30,13 +29,17 @@ const ProductCard = ({
             className="relative group bg-white rounded-2xl overflow-hidden shadow border-y-4 border-transparent hover:border-amber-950 duration-300"
         >
             {/* Product Image */}
-            <Link to={`/product/${product.id}`} className="block overflow-hidden">
-                <img
-
-                    src={product.images?.[0]}
-                    alt={product.name}
-                    className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+           <Link
+              to={`/product/${product.id}`}
+              className="block overflow-hidden"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+           >
+              <img
+                 src={isHovered ? product.images?.[1] : product.images?.[0]}
+                 alt={product.name}
+                 className="h-64 w-full object-cover transition-all duration-500"
+              />
             </Link>
 
             {/* Wishlist */}

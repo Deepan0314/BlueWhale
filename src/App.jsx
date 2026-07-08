@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import LoadingScreen from "./Components/LoadingScreen";
 
+import AdminDashboard from "./Pages/AdminDashboard";
+import AdminProtectedRoute from "./Components/AdminProtectedRoute";
+
 import HomePage from "./Pages/HomePages";
 import ProductsPage from "./Pages/ProductsPage";
 import ProductPage from "./Pages/ProductPage";
@@ -13,12 +16,21 @@ import KidsPage from "./Pages/KidsPage";
 import NewArrivalsPage from "./Pages/NewArrivalsPage";
 import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
+
 import Wishlist from "./Components/Whislist";
-import NotFound from "./Pages/NotFound";
 import ScrollTop from "./Components/ScrollTop";
 import Account from "./Components/AccountDetails/Account";
+
+import NotFound from "./Pages/NotFound";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+
+import ProtectedRoute from "./Components/ProtectedRoutes";
+import OrderHistory from "./Components/AccountDetails/OrderHistory";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 const App = () => {
 
@@ -27,6 +39,7 @@ const App = () => {
   return (
     <>
       <ToastContainer position="top-right" autoClose={1500} />
+
       {!isLoaded && (
         <LoadingScreen
           onComplete={() => setIsLoaded(true)}
@@ -39,33 +52,80 @@ const App = () => {
         }}
         className="bg-[#f8f7f5] min-h-screen"
       >
+
         <Router>
+
           <ScrollTop />
 
-
-
           <Routes>
-            <Route element={<Layout />}>
+
+            {/* PUBLIC ROUTES */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
+
+            {/* ADMIN ROUTE */}
+            <Route
+              path="/admin"
+              element={
+                <AdminProtectedRoute>
+                  <AdminDashboard />
+                </AdminProtectedRoute>
+              }
+            />
+
+
+            {/* USER ROUTES */}
+            <Route
+              element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              }
+            >
+
               <Route
                 path="/"
                 element={<HomePage isLoaded={isLoaded} />}
               />
 
               <Route path="/products" element={<ProductsPage />} />
+
               <Route path="/product/:id" element={<ProductPage />} />
+
               <Route path="/men" element={<MenPage />} />
+
               <Route path="/women" element={<WomenPage />} />
+
               <Route path="/kids" element={<KidsPage />} />
-              <Route path="/new-arrivals" element={<NewArrivalsPage />} />
+
+              <Route
+                path="/new-arrivals"
+                element={<NewArrivalsPage />}
+              />
+
               <Route path="/cart" element={<CartPage />} />
+
               <Route path="/checkout" element={<CheckoutPage />} />
+
               <Route path="/wishlist" element={<Wishlist />} />
+
               <Route path="/account" element={<Account />} />
 
-              <Route path="*" element={<NotFound />} />
+              <Route path="/orders" element={<OrderHistory />} />
+
+
             </Route>
+
+
+            {/* NOT FOUND */}
+            <Route path="*" element={<NotFound />} />
+
+
           </Routes>
+
         </Router>
+
       </div>
     </>
   );
