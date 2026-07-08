@@ -26,7 +26,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 
 import ProtectedRoute from "./Components/ProtectedRoutes";
-import OrderHistory from "./pages/OrderHistory";
+import OrderHistory from "./Components/AccountDetails/OrderHistory";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
